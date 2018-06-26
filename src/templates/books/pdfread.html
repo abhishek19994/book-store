@@ -1,0 +1,9 @@
+{%extends "base.html"%}
+{%block content%}
+    <a href="{{url_for('books.view',id=id,number=0)}}" class="btn btn-success">Back to Home</a>
+    <p>{{text}}</p>
+    <div align="center">
+        <a href="{{url_for('books.view',id=id,number=number-1)}}" class="btn btn-danger">Prev</a>
+        <a href="{{url_for('books.view',id=id,number=number+1)}}" class="btn btn-success">Next</a>
+    </div>
+{%endblock%}

@@ -1,0 +1,12 @@
+{%extends "base.html"%}
+{%block content%}
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action active">
+    Categories</button>
+      {%for category in categories%}
+  <a type="button" class="list-group-item list-group-item-action" href="{{url_for('books.home',id=category._id)}}">{{category.name}}</a>
+
+</div>
+{%endfor%}
+
+{%endblock%}

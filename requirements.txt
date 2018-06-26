@@ -1,0 +1,4 @@
+pymongo==3.0.3
+Flask==0.12.1
+passlib==1.7.1
+PyPDF2==1.26.0

@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+{%block content%}
+
+<div class="card-columns">
+{%for i in books %}
+  <div class="card p-3" >
+    <blockquote class="blockquote mb-0 card-body">
+      <h3><a href="{{url_for('books.book',id=i._id)}}">{{i.title}}</a></h3>
+      <footer class="blockquote-footer">
+        <small class="text-muted">
+         {{i.description}}
+        </small>
+      </footer>
+    </blockquote>
+
+  </div>
+{%endfor%}
+</div>
+
+{%endblock%}

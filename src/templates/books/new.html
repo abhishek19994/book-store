@@ -1,0 +1,33 @@
+{%extends "base.html" %}
+{%block content%}
+<div class ="container page-form" id="form-size">
+    <h3>Add new Book</h3>
+<form id="register-form"   method="post">
+<label>Book name</label>
+<div class="form-group">
+<input id="title" type="text" name="title" class="form-control" >
+</div>
+<label>author</label>
+<div class="form-group">
+<input type="text" class="form-control" id="author" name="author" >
+</div>
+    <label>Publishing date</label>
+<div class="form-group">
+<input id="year" type="text" name="year" class="form-control" >
+</div>
+   <label>description(Optional)</label>
+<div class="form-group">
+<input id="description" type="text" name="description" class="form-control" >
+</div>
+     <label>Link</label>
+<div class="form-group">
+<input id="link" type="text" name="link" class="form-control" >
+</div>
+    <label>Category</label>
+<div class="form-group">
+<input id="category" type="text" name="category" class="form-control" >
+</div>
+<button type="submit" class="btn btn-success">Create</button>
+</form>
+</div>
+{%endblock%}

@@ -4,7 +4,7 @@ Database.initialize()
 import uuid
 from datetime import datetime
 class Book(object):
-    def __init__(self,title,category_id,author,year,link,description="",updated_time=None,_id=None):
+    def __init__(self,title,category_id,author,year,link,description="",page=0,updated_time=None,_id=None):
         self.title=title
         self.author=author
         self.year=year
@@ -13,13 +13,14 @@ class Book(object):
         self.description=description
         self.link=link
         self._id=uuid.uuid4().hex if _id is None else _id
+        self.page=page if page else 0
     @classmethod
     def find_by_author(cls,author):
         return [cls(**i) for i in Database.find('books',{"author":author})]
     def json(self):
-        return {"category_id":self.category_id,"link":self.link,"title":self.title, "author":self.author,"year":self.year,"_id":self._id,"updated_time":self.updated_time,"description":self.description}
+        return {"category_id":self.category_id,"page":self.page,"link":self.link,"title":self.title, "author":self.author,"year":self.year,"_id":self._id,"updated_time":self.updated_time,"description":self.description}
     def save(self):
-        Database.insert('books',self.json())
+        Database.update('books',{"_id":self._id},self.json())
     @classmethod
     def find_by_id(cls,id):
         return cls(**Database.find_one('books',{"_id":id}))

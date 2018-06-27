@@ -1,9 +1,29 @@
 {%extends "base.html"%}
 {%block content%}
-    <a href="{{url_for('books.view',id=id,number=0)}}" class="btn btn-success">Back to Home</a>
+
+<a href="{{url_for('books.view',id=id,number=0)}}" class="btn btn-success">Back to Home</a>
     <p>{{text}}</p>
     <div align="center">
         <a href="{{url_for('books.view',id=id,number=number-1)}}" class="btn btn-danger">Prev</a>
         <a href="{{url_for('books.view',id=id,number=number+1)}}" class="btn btn-success">Next</a>
     </div>
+{%if element%}
+<textarea>{{element}}</textarea>
+{%else%}
+<textarea id="textarea1"></textarea>
+{%endif%}
+<a id="kaki" onclick="updateLink(this)" href="#" class="btn btn-info">Search</a>
+<script>
+        function getSelectedText() {
+        return window.getSelection ? window.getSelection()
+                                   : document.selection.createRange().text;
+    }
+    window.updateLink = function (a){
+       var result=getSelectedText().toString()
+       var href="{{url_for('books.search',data='+result+',id=id)}}"
+       a.setAttribute('href',result);
+    }
+    </script>
+
+
 {%endblock%}

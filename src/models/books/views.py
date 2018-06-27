@@ -1,5 +1,6 @@
 import sys
-
+import requests
+from bs4 import BeautifulSoup
 import PyPDF2
 sys.path.insert(0,'F:\\books')
 from flask import Blueprint, render_template, redirect, url_for, request, session
@@ -79,11 +80,30 @@ def cat():
 @book_blueprint.route('/view/<string:id>/<int:number>')
 def view(id,number):
 
-    link=Book.find_by_id(id).link
-
+    book=Book.find_by_id(id)
+    link=book.link
+    book.page=number
+    book.save()
     pdfFileObj = open('F:/books/'+link+'.pdf', 'rb')
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
     pageObj = pdfReader.getPage(number)
     text=pageObj.extractText()
     return render_template('books/pdfread.html',text=text,id=id,number=number)
 
+@book_blueprint.route('/view/<string:id>/<string:data>')
+def search(id,data):
+
+    book=Book.find_by_id(id)
+    link = book.link
+    number=book.page
+    pdfFileObj = open('F:/books/' + link + '.pdf', 'rb')
+    pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+    pageObj = pdfReader.getPage(number)
+    text = pageObj.extractText()
+    request = requests.get("http://www.dictionary.com/browse/"+data+"?s=t")
+    content = request.content
+    soup = BeautifulSoup(content, "html.parser")
+    element = soup.find("span",{"class":"css-9sn2pa e10vl5dg6"})
+
+
+    return render_template('books/pdfread.html', text=text, id=id,number=book.page,element=element.text.strip())
